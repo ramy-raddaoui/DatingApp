@@ -49,7 +49,7 @@ namespace BackApp.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
-
+           //  throw new Exception ("Computer says no !");
             // because the photos are a collection inside the users, they won't be fetched with
             // first or default, it is necessary to explitly include them
             var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
@@ -57,7 +57,7 @@ namespace BackApp.API.Controllers
             {
                 return Unauthorized();
             }
-
+ 
             var claims = new [] 
             {
                 new Claim(ClaimTypes.NameIdentifier,userFromRepo.Id.ToString()),
@@ -79,7 +79,7 @@ namespace BackApp.API.Controllers
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
-                  return Ok(new
+                  return Ok(new 
             {
                 token = tokenHandler.WriteToken(token)
             });
@@ -88,7 +88,6 @@ namespace BackApp.API.Controllers
             }
             */
            // return user;
-           return null;
         }
 
 
