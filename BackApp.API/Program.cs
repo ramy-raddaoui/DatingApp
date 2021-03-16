@@ -1,9 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using BackApp.API.Data;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -13,7 +12,23 @@ namespace BackApp.API
     {
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+               using(var scope = host.Services.CreateScope()) /*Can't use injection, use services*/
+            {
+                var services = scope.ServiceProvider;
+                try
+                {
+                    var context = services.GetRequiredService<DataContext>();
+                    context.Database.Migrate(); //"dontnet ef database migrate" to create/apply pending migrations if necessary
+                    Seed.SeedUsers(context);
+                }
+                catch(Exception exception)
+                {
+                    var logger = services.GetRequiredService<ILogger<Program>>();
+                    logger.LogError(exception, $"Error : {nameof(Seed)}");
+                } 
+            }
+             host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>

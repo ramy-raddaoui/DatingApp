@@ -14,7 +14,7 @@ export class AuthService {
   decodedToken : any;
 constructor(private http:HttpClient) { 
 }
-
+ 
 
 login(model :any)
 {
