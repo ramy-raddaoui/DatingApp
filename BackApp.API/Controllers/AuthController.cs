@@ -9,14 +9,13 @@ using System.IdentityModel.Tokens.Jwt;
 using System;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
-
-
-
+using Microsoft.AspNetCore.Authorization;
 
 namespace BackApp.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [AllowAnonymous]
     public class AuthController : ControllerBase
     {
         public readonly IAuthRepository _repo;

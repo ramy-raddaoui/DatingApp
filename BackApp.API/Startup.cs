@@ -83,21 +83,20 @@ namespace BackApp.API
                     });
                 });
             }
-
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
-
-            //app.UseHttpsRedirection();
-
             app.UseRouting();
             
             app.UseAuthentication();
 
             app.UseAuthorization();
 
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+
+            //app.UseHttpsRedirection();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-        }
+        } 
     }
 }
