@@ -23,5 +23,10 @@ constructor(private http: HttpClient) { }
   updateUser(id: number, user: User)  {
     return this.http.put(this.baseUrl + 'users/' + id, user);
   }
-
+  setPhotoMain(userId: number, id: number) {
+    return this.http.put(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain',{});
+  }
+  deletePhoto(userId: number, id: number) {
+    return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id);
+  }
 }

@@ -42,6 +42,7 @@ namespace BackApp.API
             );
             services.AddCors();
             services.AddAutoMapper(typeof(IDatingRepository).Assembly);            
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
             services.AddScoped<IAuthRepository,AuthRepository>();
             services.AddScoped<IDatingRepository, DatingRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
