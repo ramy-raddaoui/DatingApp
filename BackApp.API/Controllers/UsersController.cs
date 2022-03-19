@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BackApp.API.Data;
 using BackApp.API.DTOs;
+using BackApp.API.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,7 +15,8 @@ namespace BackApp.API.Controllers
     [ApiController]
     [Authorize]
     public class UsersController : ControllerBase
-    {
+    { 
+         
         private readonly IDatingRepository _repo;
         private readonly IMapper _mapper;
         public UsersController(IDatingRepository repo, IMapper mapper)
@@ -23,10 +25,11 @@ namespace BackApp.API.Controllers
             _repo = repo;
         }
         [HttpGet]
-        public async Task<IActionResult> GetUsers()
+        public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
         {
-            var users = await _repo.GetUsers();
-            var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);            
+            var users = await _repo.GetUsers(userParams);
+            var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users); 
+            Response.AddPagination(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);           
             return Ok(usersToReturn);
         }
         [HttpGet("{id}",Name ="GetUser")]
