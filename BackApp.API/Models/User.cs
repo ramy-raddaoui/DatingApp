@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using BackApp.API.Helpers;
 
 namespace BackApp.API.Models
 {
@@ -23,5 +24,7 @@ namespace BackApp.API.Models
         public string City { get; set; }
         public string Country { get; set; }
         public virtual ICollection<Photo> Photos { get; set; }
+        public virtual ICollection<Like> Likees { get; set; }
+        public virtual ICollection<Like> Likers { get; set; }
     }
 }

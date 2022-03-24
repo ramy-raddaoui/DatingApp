@@ -30,7 +30,6 @@ import { MemberEditComponent } from './members/member-edit/member-edit.component
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { PhotoEditorComponent } from './members/photo-editor/photo-editor.component';
-import { TimeAgoPipe } from 'time-ago-pipe';
  
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -56,7 +55,6 @@ export class CustomHammerConfig extends HammerGestureConfig  {
       MemberDetailComponent,
       MemberEditComponent,
       PhotoEditorComponent,
-      TimeAgoPipe
    ],
   imports: [
     BrowserModule,
@@ -76,7 +74,7 @@ export class CustomHammerConfig extends HammerGestureConfig  {
          allowedDomains: ['localhost:5001'],
          disallowedRoutes: ['localhost:5000/api/auth']
       }
-   })
+   }),
   ],
   providers: [
     AuthService,

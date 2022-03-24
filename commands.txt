@@ -1,1 +1,4 @@
 dotnet ef database drop
+dotnet tool install --global dotnet-ef --version 3.0.0
+dotnet ef migrations add <NameOfMigrationToAdd>
+dotnet ef database update (after creating a database migration)
