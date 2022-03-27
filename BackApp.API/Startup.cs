@@ -114,7 +114,7 @@ namespace BackApp.API
 
             app.UseDefaultFiles(); // Loking for index.html inside our content root path
             app.UseStaticFiles();// Look into folder called wwwroot for content inside there
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
 
             app.UseEndpoints(endpoints =>
             {
