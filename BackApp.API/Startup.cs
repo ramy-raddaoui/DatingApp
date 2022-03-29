@@ -60,6 +60,7 @@ namespace BackApp.API
             services.AddControllersWithViews().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+            services.AddSwaggerGen();
             services.AddCors();
             services.AddAutoMapper(typeof(IDatingRepository).Assembly);            
             services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
@@ -83,6 +84,11 @@ namespace BackApp.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+            app.UseSwaggerUI(c => 
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json","API");
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
